@@ -6,6 +6,7 @@ In the modern work world today skills are of increasing importance and outweigh 
 + Identify skills from candidates (e.g. via CVs)
 + Match skills with open positions (internal career development + externals)
 + Identify skill trends (upwards and downwards) and prepare their workforce for the future  
+  
 This project will make use of a database of job descriptions and run text analysis to:  
 + Identify skills and map to a skills ontology
 + Identify skill trends
