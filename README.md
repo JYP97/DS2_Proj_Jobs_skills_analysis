@@ -11,3 +11,4 @@ This project will make use of a database of job descriptions and run text analys
 + Identify skills and map to a skills ontology
 + Identify skill trends
 + Identify job description similarities
+
