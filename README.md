@@ -19,3 +19,10 @@ https://www.kaggle.com/datasets/PromptCloudHQ/us-technology-jobs-on-dicecom
 + Job Title
 + Job Skills
 + ....
+
+## Process of Job Skills Analysis
++ Dataset Pre-Processing
++ EDA
++ ML-Model
++ GUI Design
++ Future Work
