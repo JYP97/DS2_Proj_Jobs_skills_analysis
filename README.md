@@ -14,8 +14,8 @@ This project will make use of a database of job descriptions and run text analys
 
 ## The Dataset in our Project
 https://www.kaggle.com/datasets/PromptCloudHQ/us-technology-jobs-on-dicecom
-# What are included in the dataset?
-+Job Description
-+Job Title
-+Job Skills
-+....
+### What are included in the dataset?
++ Job Description
++ Job Title
++ Job Skills
++ ....
