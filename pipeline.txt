@@ -1,0 +1,18 @@
+Pipeline:
+// Data processing
+Preprocessing: 
+0.1 get rid of data points with NaN skill (and other features that we want to use),
+0.2 split skills,
+0.3 remove redundant columns
+0.4 Find duplicated skills(same or similar job title with different skills, salary, experiences, etc.)
+Roughly truncate dataset -> 4k~5k random sample
+Manual/Automatic annotation of skills ontology with the help of ESCO
+Truncate dataset with more balanced samples -> 2k~3k
+// Algorithm & Training
+(TBD) Model selection (e.g. BERT, GPT), to decide the corresponding tokenizer
+(TBD) Tokenization of dataset & fine-tunning of pre-trained models
+(TBD) Toy experiment, check if models can realize classification function, if not, go back to 4.
+// Front-end
+(TBD) Additional functions like salary matching, trend prediction(popularity), weights of job recommendation(distribution of recommendation)
+(TBD) Visualization
+(TBD) Demo && Presentation
