@@ -1,8 +1,8 @@
 <template>
   <div class="hello">
     <welcome></welcome>
-    <search @firstStep="next"></search>
-    <SkillSelection v-show="first"></SkillSelection>
+    <search @table="getSkills" @firstStep="next"></search>
+    <SkillSelection v-show="first" :skills="skills"></SkillSelection>
   </div>
 </template>
 
@@ -15,11 +15,15 @@ import SkillSelection from "./SkillSelection.vue";
 export default {
   name: 'HelloWorld',
   data () {return {
-    first: false
+    first: false,
+    skills: null
   }},
   methods: {
     next(){
       this.first = true
+    },
+    getSkills(data){
+      this.skills = data
     }
   },
   components: {
