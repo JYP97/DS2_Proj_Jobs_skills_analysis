@@ -23,12 +23,13 @@ export default {
   name: 'SkillSelection',
   data () {
     return {
-      url: 'https://9a34e925-01f5-470d-a68c-9fa1159931a4.mock.pstmn.io/selection',
+      url_postman: 'https://9a34e925-01f5-470d-a68c-9fa1159931a4.mock.pstmn.io/selection',
+      url_nameko: 'http://127.0.0.1:8000/job',
       request: null,
       response: null,
       info: [
         'Skill Selection',
-        'Job Category',
+        'Skill Category',
         'selected'
       ],
       s: {
@@ -61,10 +62,10 @@ export default {
       }
     },
     confirm () {
-      axios.post(this.url, this.filSkillList)
+      axios.post(this.url_nameko, {'request': JSON.stringify(this.filSkillList)})
         .then((res) => {
           this.request = res.config.data
-          this.response = res.data
+          this.response = res.data.response
         }).catch(err => {
           this.response = err
         })

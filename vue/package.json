@@ -14,9 +14,16 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "amqplib": "^0.10.3",
     "axios": "^1.2.2",
+    "jayson": "^4.0.0",
+    "jayson-rpc-vue": "^1.1.2",
+    "node-nameko-client": "^1.0.16",
+    "rpc-amqp": "^0.2.20",
+    "stompjs": "^2.3.3",
     "vue": "^2.5.2",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vue-rpc": "^3.4.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

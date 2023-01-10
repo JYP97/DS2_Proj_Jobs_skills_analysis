@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
           <form>
-            <input type="text" placeholder="Please input your description" v-model="s.description">
+            <input type="text" placeholder="Please input your skills" v-model="s.description">
             <button @click="searched"> search </button>  <br/>
           </form>
     <div v-show="this.s.searched">
@@ -11,11 +11,17 @@
 
 <script>
 import axios from 'axios'
+// import Vue from 'vue'
+
 export default {
   name: 'Search',
   data () {
     return {
-      url: 'https://bff6ffdf-132c-4abb-8ab3-f6b03dd94e5b.mock.pstmn.io/description',
+      url_postman: 'https://bff6ffdf-132c-4abb-8ab3-f6b03dd94e5b.mock.pstmn.io/description',
+      url_nameko: 'http://127.0.0.1:8000/skill',
+      user_name: 'haozhe',
+      password: 'haozhe',
+      client: null,
       request: '',
       response: '',
       s: {
@@ -27,10 +33,12 @@ export default {
   methods: {
     searched () {
       this.s.searched = true
-      axios.get(this.url, {params: {description: this.s.description}})
-        .then(res => {
-          this.request = res.config.params.description
-          this.response = res.data.split(',')
+
+      axios.post(this.url_nameko, {'request': this.s.description})
+        .then((res) => {
+          this.request = res.config.data
+          this.response = res.data.response
+          this.response = this.response.split(',')
           this.$emit('table', this.response)
           this.$emit('firstStep', this.s.searched)
         }).catch(err => {
