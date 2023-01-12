@@ -1,5 +1,16 @@
 from nameko_http import api
 import json
+from transformers import BertTokenizer, BertForSequenceClassification
+import torch
+import numpy as np
+from itertools import chain
+import pandas as pd
+from sentence_transformers import SentenceTransformer
+from sklearn.metrics.pairwise import cosine_similarity
+import random
+import collections
+import math
+from skill_job_matching import SkillJobMatcher
 
 
 class NamekoService:
@@ -42,8 +53,12 @@ class NamekoService:
 
         ''' [your code] '''
 
+        if request['proficiency']:
+            resp = SkillJobMatcher(request['user_input'], request['num_job_output']).method_a(['shuffle'])
+        else:
+            resp = SkillJobMatcher(request['user_input'], request['num_job_output']).method_b(['shuffle'])
         ''' test resp data '''
-        resp = 'j1,j2,j3,j4,j5'
+        # resp = 'j1,j2,j3,j4,j5'
         dict = {'request': request, 'response': resp}
         print(dict)
 

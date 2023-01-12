@@ -42,15 +42,14 @@ class SkillJobMatcher:
 
     def weights(self):
         weights = []
-        for i in range(len(self.input_skills)):
+        for i in range(len(self.input_skills[0].split(','))):
             weights.append(math.exp(self.weight_exp))
             self.weight_exp -= 0.6
         return weights
 
     def pred_category(self):
-        input_skills_join = (', '.join(self.input_skills))
         encodings = self.tokenizer.encode_plus(
-            input_skills_join,
+            self.input_skills[0],
             # None,
             add_special_tokens=True,
             max_length=512,  # Pad & truncate all sentences.
@@ -89,9 +88,10 @@ class SkillJobMatcher:
         return pred_label
 
     def method_a(self, shuffle):
+        input_skills_split = self.input_skills[0].split(',')
         item_weight = self.weights()
         pred_label = self.pred_category()
-        input_embeddings = self.sbert_model.encode(self.input_skills)  # (# of input skills, 768)
+        input_embeddings = self.sbert_model.encode(input_skills_split)  # (# of input skills, 768)
         jobs_idx = list(self.job_df[self.job_df['job category'] == pred_label].index)
         for idx in jobs_idx:
             cos_sum = 0
@@ -111,7 +111,7 @@ class SkillJobMatcher:
         return self.output_job_a
 
     def method_b(self, shuffle):
-        input_skills_join = (', '.join(self.input_skills))
+        input_skills_join = self.input_skills
         pred_label = self.pred_category()
         input_embeddings = self.sbert_model.encode(input_skills_join)
         idx = list(self.job_df[self.job_df['job category'] == pred_label].index)
@@ -131,13 +131,22 @@ class SkillJobMatcher:
         return self.output_job_b
 
 
+def main(user_input, num_job_output, proficiency=False, shuffle=False):
+    if proficiency:
+        output_list = SkillJobMatcher(user_input, num_job_output).method_a(shuffle)
+    else:
+        output_list = SkillJobMatcher(user_input, num_job_output).method_b(shuffle)
+
+    return output_list
+
+
 if __name__ == '__main__':
-    # input_skills = ['c++', 'python', 'java']
-    # input_skills = ['building and repairing structures', 'finishing interior or exterior of structures']
-    input_skills = ['installing heating, ventilation and air conditioning equipment', 'joining parts using soldering, welding or brazing techniques']
-    matched_jobs_A = SkillJobMatcher(input_skills, 10).method_a(shuffle=0)
-    matched_jobs_B = SkillJobMatcher(input_skills, 10).method_b(shuffle=0)
-    print("Input skills: \n", input_skills, "\n")
-    print("Resutl of method A: \n", matched_jobs_A, "\n")
-    print("Resutl of method B: \n", matched_jobs_B, "\n")
+    user_input = ['c++, java, python']
+
+    output_proficiency = main(user_input, 10, True)
+    output_wo_proficiency = main(user_input, 10)
+
+    print("Input skills, split with comma: \n", user_input, "\n")
+    print("Result with proficiency order: \n", output_proficiency, "\n")
+    print("Result without proficiency order: \n", output_wo_proficiency)
 
