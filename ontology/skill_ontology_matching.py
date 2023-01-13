@@ -17,7 +17,7 @@ class SkillOntologyMatcher:
         self.model = SentenceTransformer('bert-base-nli-mean-tokens')
         self.output = {}  # key: skill, value: ontology
 
-    def predict_level3_ontology(self):
+    def predict_ontology(self):
         input_split = self.input_skill[0].split(',')
         input_df = pd.DataFrame(self.input_skill[0].split(','))
         split_embeddings = self.model.encode(input_split)
@@ -30,13 +30,17 @@ class SkillOntologyMatcher:
             ontology_tree = self.esco[self.esco['Level 3 preferred term'] == ont].values
             input_df.loc[idx, 'Level 2 Ontology'] = ontology_tree[0, 5]
             input_df.loc[idx, 'Level 1 Ontology'] = ontology_tree[0, 3]
+            input_df.rename(columns={0: 'skills'})
 
         return input_df
 
 
 if __name__ == '__main__':
     input_sk = ['c++, java, python']
-    ontologyMatcher = SkillOntologyMatcher(input_sk).predict_level3_ontology()
-    print(ontologyMatcher['Level 3 Ontology'].values, '\n',
-          ontologyMatcher['Level 2 Ontology'].values, '\n',
-          ontologyMatcher['Level 1 Ontology'].values, '\n')
+    ontologyMatcher = SkillOntologyMatcher(input_sk).predict_ontology()
+    for i, row in ontologyMatcher.iterrows():
+        input_split = input_sk[0].split(',')
+        print("Skill: ", input_split[i])
+        print("Level 1 Ontology: ", row['Level 1 Ontology'], '\n')
+        print("Level 2 Ontology: ", row['Level 2 Ontology'], '\n')
+        print("Level 3 Ontology: ", row['Level 3 Ontology'], '\n')

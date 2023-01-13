@@ -33,6 +33,9 @@ class SkillJobMatcher:
         self.job_emb = np.array(pd.read_csv('./job_emb.csv', header=None).to_numpy())
         print("=== Pre-calculated job skill embeddings loaded. ===")
 
+        self.original_df = pd.read_csv('./original_df.csv')
+        print("=== Original job dataset loaded. ===")
+
         self.input_skills = input_skills
         self.weight_exp = 7
         self.num_job_pred = num_job_pred
@@ -131,22 +134,35 @@ class SkillJobMatcher:
         return self.output_job_b
 
 
-def main(user_input, num_job_output, proficiency=False, shuffle=False):
+def main(user_input, num_job_output, proficiency=False, shuffle=False, additional_info=True):
     if proficiency:
         output_list = SkillJobMatcher(user_input, num_job_output).method_a(shuffle)
     else:
         output_list = SkillJobMatcher(user_input, num_job_output).method_b(shuffle)
 
-    return output_list
+    if additional_info:
+        original_df = pd.read_csv('./original_df.csv')
+        print("=== Original job dataset loaded. ===")
+
+        description_list = []
+        for idx, jobs in enumerate(output_list):
+            id = original_df[original_df['title'] == jobs].index.to_numpy()
+            description_list.append(original_df['description'][id])
+
+        descriptions = []
+        for i in description_list:
+            descriptions.append(i.values)
+
+    return output_list, descriptions
 
 
 if __name__ == '__main__':
     user_input = ['c++, java, python']
 
-    output_proficiency = main(user_input, 10, True)
-    output_wo_proficiency = main(user_input, 10)
+    output_proficiency = main(user_input, 10, True)[0]
+    output_wo_proficiency = main(user_input, 10)[0]
 
-    print("Input skills, split with comma: \n", user_input, "\n")
+    print("Input skills: \n", user_input, "\n")
     print("Result with proficiency order: \n", output_proficiency, "\n")
     print("Result without proficiency order: \n", output_wo_proficiency)
 
