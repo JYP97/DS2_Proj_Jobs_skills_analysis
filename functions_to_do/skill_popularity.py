@@ -8,7 +8,7 @@ import itertools
 def skill_pop(cat, PATH):
     df = pd.read_csv(PATH)
     cat_matching_skills = []
-    for index, item in enumerate(df['job_category']):
+    for index, item in enumerate(df['job category']):
         if item == cat:
             cat_matching_skills.append(df['skills'][index])
     # skill splitting
@@ -27,4 +27,9 @@ def skill_pop(cat, PATH):
     for item in most_10:
         counts_10.append(item[1])
         labels_10.append(item[0])
+
     return labels_10
+
+# if __name__ == "__main__":
+#     res = skill_pop("Elementary occupations", "/Users/shuoyang/Desktop/combined_file.csv")
+#     print(res)
