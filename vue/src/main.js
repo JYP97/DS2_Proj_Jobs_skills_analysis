@@ -3,12 +3,14 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-// import ElementUi from 'element-ui'
 import JaysonRpcVue from 'jayson-rpc-vue'
-// import * as https from 'https'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+import 'animate.css'
 
 Vue.config.productionTip = false
 Vue.use(JaysonRpcVue, '127.0.0.1:5672', false)
+Vue.use(ElementUI)
 
 /* eslint-disable no-new */
 new Vue({

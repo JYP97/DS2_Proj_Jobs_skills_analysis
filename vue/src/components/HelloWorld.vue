@@ -1,8 +1,8 @@
 <template>
   <div class="hello">
-    <welcome></welcome>
-    <search @table="getSkills" @firstStep="next"></search>
-    <SkillSelection v-show="first" :skills="skills"></SkillSelection>
+    <welcome :searched="searched"></welcome>
+    <search @table="getJobs" @firstStep="next"></search>
+    <jobs :searched="searched" :jobList="jobList"></jobs>
   </div>
 </template>
 
@@ -11,22 +11,24 @@
 import Welcome from "../components/Welcome.vue";
 import Search from "../components/Search.vue";
 import SkillSelection from "./SkillSelection.vue";
+import Jobs from "./Jobs.vue";
 
 export default {
   name: 'HelloWorld',
   data () {return {
-    first: false,
-    skills: null
+    searched: false,
+    jobList: null
   }},
   methods: {
     next(){
-      this.first = true
+      this.searched = true
     },
-    getSkills(data){
-      this.skills = data
+    getJobs(data){
+      this.jobList = data
     }
   },
   components: {
+    Jobs,
     Welcome,
     Search,
     SkillSelection
@@ -50,5 +52,10 @@ li {
 }
 a {
   color: #42b983;
+}
+body{
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
 </style>
