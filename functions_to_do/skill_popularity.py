@@ -5,7 +5,7 @@ import itertools
 
 
 # function to calculate skill popularity
-def skill_pop(title, cat, PATH):
+def skill_pop(cat, PATH):
     df = pd.read_csv(PATH)
     cat_matching_skills = []
     for index, item in enumerate(df['job_category']):
