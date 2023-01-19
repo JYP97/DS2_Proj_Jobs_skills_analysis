@@ -22,13 +22,13 @@ def skill_pop(cat, PATH):
     # implement Counter: return counts and labels
     count = Counter(flat_list)
     most_10 = count.most_common(10)
-    counts_10 = []
-    labels_10 = []
-    for item in most_10:
-        counts_10.append(item[1])
-        labels_10.append(item[0])
+#     counts_10 = []
+#     labels_10 = []
+#     for item in most_10:
+#         counts_10.append(item[1])
+#         labels_10.append(item[0])
 
-    return labels_10
+    return most_10
 
 # if __name__ == "__main__":
 #     res = skill_pop("Elementary occupations", "/Users/shuoyang/Desktop/combined_file.csv")
