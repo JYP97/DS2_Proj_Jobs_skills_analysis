@@ -8,10 +8,12 @@ import itertools
 def skill_pop(job_titles, PATH):
     df = pd.read_csv(PATH)
     matching_skills = []
-    for index, item in enumerate(job_titles):
+    for item in job_titles:
+        index = 0
         for title in df['title']:
             if item == title:
                 matching_skills.append(df['skills'][index])
+            index += 1
     # skill splitting
     skills = []
     for description in matching_skills:
